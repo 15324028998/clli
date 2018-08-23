@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+  <style>
+    li{
+      width: 100px;
+      height: 100px;
+      background: red;
+      margin: 10px;
+    }
+    /*body {*/
+
+      /*user-select: none;*/
+
+    /*moz-user-select: none;*/
+
+    /*webkit-user-select: none;*/
+
+    /*ms-user-select: none;*/
+
+    /*}*/
+  </style>
+</head>
+<body>
+<ul>
+  <li data-index="0">1</li>
+  <li data-index="1">2</li>
+  <li data-index="2">3</li>
+  <li data-index="3">4</li>
+  <li data-index="4">5</li>
+</ul>
+<div>
+  setData(): 修改剪切板中的数据
+
+  参数：第一个参数也是'text'，第二个参数是要放在剪切板中的文本。
+
+  剩下的留在下面仿知乎/掘金复制大段文本添加版权信息那里再说。
+
+  clearData() :
+
+  这个方法就不太知道了，试了好久不知道怎么用(如果有大佬知道，可以在评论区指点一下)。
+
+  如果只是为了禁止复制，或者禁止粘贴，在下面还有另外的方法可以做到，并且可以细粒化操作。
+
+
+
+  应用
+  如果学习不是为了装X，那么一切将毫无意义，来看这个东西可以在哪些场景使用：
+
+  实现很简单：取消默认复制之后，主要是在被复制的内容后面添加信息，然后根据clipboardData的setData()方法将信息写入剪贴板。
+
+  可以直接复制这段代码到本地去试试。
+</div>
+<input class="inp" type="text" value="您拨打的电话是15324028998" style="display: none">
+<button class="btn">复制</button>
+<script>
+  //A33
+  function factorial(num) {
+    if(num == 0){
+      return 0
+    }else if(num == 1){
+      return 1
+    }else {
+      return num * factorial(num - 1)
+    }
+  }
+  // C33
+
+  console.log(factorial(3));
+
+  // for(var i = 0; i < 5; i++) {
+  //   document.onclick = function () {
+  //     alert(i)
+  //   }
+  // }
+  console.log($('li'))
+  for (var i = 0; i < $('li').length; i++) {
+    (function (num) {
+      $('li')[num].onclick = function() {
+        alert(num);
+      }
+    })(i);
+
+  }
+
+  var arr = [2,4,5,6,8,10]
+  console.log(special(arr))
+  function special(arr) {
+    if(Array.isArray(arr)) {
+      let j = arr[0] % 2;
+      for(i in arr) {
+        if(j !== j^(arr[i] % 2)) {
+          if(i === '1') {
+            if((arr[1] % 2) !==(arr[2] % 2)) {
+              return arr[1];
+            }else {
+              return arr[0];
+            }
+          }else {
+            return arr[i];
+          }
+        }else {
+          // j =  j^(arr[i] % 2)
+        }
+      }
+    }
+  }
+
+//复制黏贴
+  document.addEventListener('copy', e => {
+    console.log(window.getSelection(0).toString())
+  })
+  document.addEventListener('paste', e => {
+    console.log(e.clipboardData.getData('text'))
+  })
+
+
+  //
+  // // 禁止右键菜单
+  //
+  // document.body.oncontextmenu = e => {
+  //
+  //   console.log(e, '右键');
+  //
+  //   return false;
+  //
+  //   // e.preventDefault();
+  //
+  // };
+  //
+  // // 禁止文字选择。
+  //
+  // document.body.onselectstart = e => {
+  //
+  //   console.log(e, '文字选择');
+  //
+  //   return false;
+  //
+  //   // e.preventDefault();
+  //
+  // };
+  //
+  // // 禁止复制
+  //
+  // document.body.oncopy = e => {
+  //
+  //   console.log(e, 'copy');
+  //
+  //   return false;
+  //
+  //   // e.preventDefault();
+  //
+  // }
+  //
+  // // 禁止剪切
+  //
+  // document.body.oncut = e => {
+  //
+  //   console.log(e, 'cut');
+  //
+  //   return false;
+  //
+  //   // e.preventDefault();
+  //
+  // };
+  //
+  // // 禁止粘贴
+  //
+  // document.body.onpaste = e => {
+  //
+  //   console.log(e, 'paste');
+  //
+  //   return false;
+  //
+  //   // e.preventDefault();
+  //
+  // };
+
+  // css 禁止文本选择 这样不会触发js
+
+$('.btn').click(function () {
+  var value = $('.inp').val();
+  $('.inp').select()
+  document.execCommand("copy"); // 执行浏览器复制命令
+  alert('复制成功')
+  // e.clipboardData.setData('text','您拨打的电话是15324028998')
+})
+
+</script>
+</body>
+</html>
